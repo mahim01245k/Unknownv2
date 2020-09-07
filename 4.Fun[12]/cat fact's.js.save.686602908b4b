@@ -1,0 +1,24 @@
+const request = require('superagent')
+const MessageEmbed = require('discord.js')
+
+module.exports = {
+    name: "cat-facts",
+    category: "fun",
+    description: "generates a random fun fact about cats!",
+    usage: "cat-facts",
+    run: async (client, message, args) => {
+        request.get('https://catfact.ninja/fact').end((err, res) => {
+            if (!err && res.status === 200) {
+                  const hack = new MessageEmbed()
+      .setColor(0xe91e63)
+      .setDescription();
+
+
+                message.channel.send(res.body.fact)
+            } 
+            else {
+                console.log(`REST call failed: ${err}`);
+            }
+        });
+    },
+};
